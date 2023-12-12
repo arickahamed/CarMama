@@ -4,6 +4,7 @@ import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 import Overview from '../components/Overview'
 import Partners from '../components/Partners'
+import Services from '../components/Services'
 import Trademark from '../components/Trademark'
 
 const Home = () => {
@@ -13,6 +14,7 @@ const Home = () => {
       <Partners />
       <AboutUs />
       <Overview />
+      <Services />
       <Trademark />
     </Layout>
   )

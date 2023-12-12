@@ -3,7 +3,7 @@ import { trademarkInfo } from '../asset/data';
 
 const Trademark = () => {
   return (
-    <div className='w-screen border border-red-500 py-10 bg-gray-200'>
+    <div className='w-screen py-10 bg-gray-200'>
         <div className='w-[85%] m-auto'>
             <h2 className='text-center text-[25px] font-semibold pb-5'>Our Trademark</h2>
             <div className=' md:flex  justify-evenly'>
