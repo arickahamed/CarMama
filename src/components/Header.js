@@ -1,38 +1,55 @@
-import React from 'react';
+import React from "react";
 import { FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
-import { NavLink, useNavigate } from 'react-router-dom';
-import { navData } from '../asset/data';
-
+import { NavLink, useNavigate } from "react-router-dom";
+import { navData } from "../asset/data";
 
 const Header = () => {
     const navigate = useNavigate();
     const navigateToHome = () => navigate("/");
-  return (
-    <div>
-        <div className=" flex justify-between w-[85vw] mx-auto my-6 sticky top-0">
-            <div className="logo">
-                <h3 className='font-bold text-xl cursor-pointer' onClick={()=> navigateToHome()} >Car<span className='text-orange-600'>Mama</span></h3>
+    return (
+        <div className="w-screen relative">
+            <div className="w-auto sticky top- border border-orange-600">
+                <div className=" flex justify-between w-[85%] mx-auto py-6">
+                    <div className="logo ">
+                        <h3
+                            className="font-bold text-xl cursor-pointer"
+                            onClick={() => navigateToHome()}
+                        >
+                            Car<span className="text-orange-600">Mama</span>
+                        </h3>
+                    </div>
+                    <div className="nav">
+                        {navData?.map((data) => {
+                            return (
+                                <NavLink
+                                    className={`mr-2 text-sm md:text-lg cursor-pointer  ${
+                                        data.name == "Login"
+                                            ? "border border-orange-500 rounded-lg bg-orange-500 text-white px-2 py-1"
+                                            : ""
+                                    }`}
+                                    to={data.link}
+                                >
+                                    {data.name}
+                                </NavLink>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
-            <div className="nav">
-            {
-                navData?.map(data => {
-                    return <NavLink className={`mr-2 text-sm md:text-lg cursor-pointer ${data.name == "Login" ? "border border-black rounded-md px-2 py-1":""}`} to={data.link}>{data.name}</NavLink>
-                })
-            }
+            <div className="bg-customYellow">
+                <div className="flex py-2 justify-between items-center w-[85vw] m-auto">
+                    <button className="bg-white shadow-sm shadow-inherit border border-black rounded-xl py-1 px-4 text-sm ">
+                        Select A Car
+                    </button>
+                    <div className="flex">
+                        <RiWhatsappFill className="mr-2 w-5" />
+                        <FaPhone className="w-5" />
+                    </div>
+                </div>
             </div>
         </div>
-        <div className="bg-customYellow">
-        <div className='flex py-2 justify-between items-center w-[85vw] m-auto'>
-            <button className='bg-white shadow-sm shadow-inherit border border-black rounded-xl py-1 px-4 text-sm '>Select A Car</button>
-            <div className="flex">
-            <RiWhatsappFill className='mr-2 w-5'/>
-            <FaPhone className='w-5' />
-            </div>
-        </div>
-        </div>
-    </div>
-  )
-}
+    );
+};
 
-export default Header
+export default Header;
