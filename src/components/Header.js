@@ -9,7 +9,7 @@ const Header = () => {
     const navigateToHome = () => navigate("/");
     return (
         <div className="w-screen relative">
-            <div className="w-auto sticky top- border border-orange-600">
+            <div className="w-auto sticky top border border-orange-600">
                 <div className=" flex justify-between w-[85%] mx-auto py-6">
                     <div className="logo ">
                         <h3
