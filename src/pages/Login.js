@@ -13,17 +13,9 @@ const Login = () => {
   const navigate = useNavigate();
     const navigateToHome = () => navigate("/");
     const navigateToRegister = () => navigate("/register");
+    const navigateToResetPass = () => navigate("/reset-password");
   return (
       <div  className='w-screen'>
-        <div className="logo pt-3 pl-3">
-                        <h5
-                            className="font-bold text-md cursor-pointer"
-                            onClick={() => navigateToHome()}
-                        >
-                            Car<span className="text-orange-600">Mama</span>
-                        </h5>
-        </div>
-
            <div className='lg:flex w-[90%] m-auto my-5'>
           {/* for larger device */}
           <div className='hidden lg:flex justify-evenly items-center w-[60%]'>
@@ -48,23 +40,23 @@ const Login = () => {
            </div>
 
            {/* for small device */}
-           <div className='lg:w-[35%] w-[75%] m-auto mt-10 border border-gray-400 rounded-md flex flex-col justify-center items-center'>
+           <div className='lg:w-[35%] md:w-[65%] w-[85%] m-auto mt-10 border shadow-lg border-gray-300 rounded-md flex flex-col justify-center items-center'>
             <div className='py-10'>
-                <h3 className='text-[23px] font-bold'>Sign In <span className='lg:hidden'>To CarMama</span></h3>
+                <h3 className='text-[23px] font-bold'>Sign In <span className='lg:hidden'>To <span className='cursor-pointer border border-b-2' onClick={navigateToHome}>Car<span className="text-orange-600">Mama</span></span> </span></h3>
                 <h5 className='lg:hidden mb-4'>Cause your privacy is important to us</h5>
                 <div className='lg:hidden text-sm py-2'>
                     Are you new here? Please <span className='text-blue-700 cursor-pointer' onClick={navigateToRegister}>register</span> first.
                 </div>
                 <div className='flex flex-col mt-2'>
-                <input type='text' className='border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none' placeholder='Your Email'/> <br />
+                <input type='text' className='hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none' placeholder='Your Email'/> <br />
                 <div>
                 <div className='flex justify-center items-center'>
-                <input type={`${visible?"text":"password"}`} className='relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full' placeholder='Your Password'/> 
+                <input type={`${visible?"text":"password"}`} className='hover:shadow-md relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full' placeholder='Your Password'/> 
                 {visible?<span className="flex justify-around items-center"><IoMdEye className="absolute mr-10" onClick={handleVisiblity}/></span> : <span className="flex justify-around items-center"><IoMdEyeOff className='text-[#A7A3FF] absolute mr-10' onClick={handleVisiblity}/></span>}
                 </div>
                 </div>
                 </div>
-                <p className='text-sm text-[#A7A3FF] text-right pb-2 cursor-pointer'>Forgot Password?</p>
+                <p onClick={navigateToResetPass} className='text-sm text-[#A7A3FF] text-right pb-2 cursor-pointer'>Forgot Password?</p>
                 <button className='w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3'>Login</button>
                 <p className='text-[#A7A3FF] mt-6 mb-3 text-center'>or connected with</p>
                 <div className='flex w-[50%] m-auto justify-between items-center'>

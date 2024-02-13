@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Services from "./pages/Services";
 import Register from "./pages/Register";
+import ResetPass from "./pages/ResetPass";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/cart" element={<Cart />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/reset-password" element={<ResetPass />} />
     </Routes>
   );
 }

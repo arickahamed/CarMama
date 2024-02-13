@@ -27,15 +27,6 @@ const Login = () => {
   const navigateToSignin = () => navigate("/login");
   return (
     <div className="w-screen">
-      <div className="logo pt-3 pl-3">
-        <h5
-          className="font-bold text-md cursor-pointer"
-          onClick={() => navigateToHome()}
-        >
-          Car<span className="text-orange-600">Mama</span>
-        </h5>
-      </div>
-
       <div className="lg:flex w-[90%] m-auto my-5">
         {/* for larger device */}
         <div className="hidden lg:flex justify-evenly items-center w-[60%]">
@@ -64,10 +55,10 @@ const Login = () => {
         </div>
 
         {/* for small device */}
-        <div className="lg:w-[35%] w-[75%] m-auto mt-10 border border-gray-400 rounded-md flex flex-col justify-center items-center">
+        <div className="lg:w-[35%] md:w-[65%] w-[85%] max-h-[80%] shadow-lg m-auto mt-10 border border-gray-300 rounded-md flex flex-col justify-center items-center">
           <div className="py-10">
             <h3 className="text-[23px] font-bold">
-              Sign Up <span className="lg:hidden">To CarMama</span>
+              Sign Up <span className="lg:hidden">To <span className="cursor-pointer border border-b-2" onClick={navigateToHome}>Car<span className="text-orange-600">Mama</span></span> </span>
             </h3>
             <h5 className="lg:hidden mb-4">
               Cause your privacy is important to us
@@ -85,13 +76,13 @@ const Login = () => {
             <div className="flex flex-col mt-2">
               <input
                 type="text"
-                className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
+                className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Name"
               />{" "}
               <br />
               <input
                 type="text"
-                className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
+                className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Email"
               />{" "}
               <br />
@@ -99,7 +90,7 @@ const Login = () => {
                 <div className="flex justify-center items-center">
                   <input
                     type={`${visible ? "text" : "password"}`}
-                    className="relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full"
+                    className="hover:shadow-md relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full"
                     placeholder="Your Password"
                   />
                   {visible ? (
@@ -122,19 +113,19 @@ const Login = () => {
               <br />
               <input
                 type="text"
-                className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
+                className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Phone"
               />{" "}
               <br />
               <input
                 type="text"
-                className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
+                className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Address"
               />{" "}
               <br />
               {/* input field for security answer */}
               <div class="inline-block relative w-64">
-                <select class="block appearance-none w-full text-[#A7A3FF] bg-[#F0EFFF] border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <select class="block appearance-none w-full text-[#A7A3FF] bg-[#F0EFFF] border border-gray-300 hover:shadow-md px-4 py-2 pr-8 rounded  leading-tight focus:outline-none focus:shadow-outline">
                   <option>Your Security Question</option>
                   <option>Your pet's name</option>
                   <option>Your favorite place</option>
@@ -155,7 +146,7 @@ const Login = () => {
               <br />
               <input
                 type="text"
-                className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
+                className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Security Answer"
               />
               {/* security answer ends here */}
