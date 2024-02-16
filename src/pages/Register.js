@@ -6,21 +6,52 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
-  const [visible, setVisible] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [securityAnswer, setSecurityAnswer] = useState("");
+  const [phone, setPhone] = useState("");
   const [adminRole, setAdminRole] = useState(false);
   const [userRole, setUserRole] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const role = () => {
+    if(adminRole === true) {
+      return "admin";
+    }else if(userRole === true) {
+      return "user";
+    }
+  }
+  const clearRole = () => {
+    if(adminRole === true) {
+      return false;
+    }else if(userRole === true) {
+      return false;
+    }
+  }
+  
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log(name, email, password, phone, address, securityAnswer, role());
+    setName("");
+    setEmail("");
+    setPassword("");
+    setAddress("");
+    setPhone("");
+    setSecurityAnswer("");
+    clearRole();
+  }
+
   const handleVisiblity = () => {
     setVisible(!visible);
   };
   const handleSetAdminRole = () => {
     setAdminRole(true);
     setUserRole(false);
-    console.log(adminRole);
   };
   const handleSetUserRole = () => {
     setUserRole(true);
     setAdminRole(false);
-    console.log(userRole);
   };
   const navigate = useNavigate();
   const navigateToHome = () => navigate("/");
@@ -74,13 +105,14 @@ const Login = () => {
               first.
             </div>
             <div className="flex flex-col mt-2">
-              <input
+              <input value={name} onChange={(e)=>setName(e.target.value)}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Name"
               />{" "}
               <br />
               <input
+              value={email} onChange={(e)=>setEmail(e.target.value)}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Email"
@@ -89,6 +121,7 @@ const Login = () => {
               <div>
                 <div className="flex justify-center items-center">
                   <input
+                  value={password} onChange={(e)=>setPassword(e.target.value)}
                     type={`${visible ? "text" : "password"}`}
                     className="hover:shadow-md relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full"
                     placeholder="Your Password"
@@ -112,20 +145,22 @@ const Login = () => {
               </div>
               <br />
               <input
+              value={phone} onChange={(e)=>setPhone(e.target.value)}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Phone"
               />{" "}
               <br />
               <input
+              value={address} onChange={(e)=>setAddress(e.target.value)}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Address"
               />{" "}
               <br />
               {/* input field for security answer */}
-              <div class="inline-block relative w-64">
-                <select class="block appearance-none w-full text-[#A7A3FF] bg-[#F0EFFF] border border-gray-300 hover:shadow-md px-4 py-2 pr-8 rounded  leading-tight focus:outline-none focus:shadow-outline">
+              <div className="inline-block relative w-64">
+                <select className="block appearance-none w-full text-[#A7A3FF] bg-[#F0EFFF] border border-gray-300 hover:shadow-md px-4 py-2 pr-8 rounded  leading-tight focus:outline-none focus:shadow-outline">
                   <option>Your Security Question</option>
                   <option>Your pet's name</option>
                   <option>Your favorite place</option>
@@ -133,9 +168,9 @@ const Login = () => {
                   <option>Your first salary</option>
                   <option>Your hobby</option>
                 </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg
-                    class="fill-current h-4 w-4"
+                    className="fill-current h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
@@ -145,6 +180,7 @@ const Login = () => {
               </div>
               <br />
               <input
+              value={securityAnswer} onChange={(e)=>setSecurityAnswer(e.target.value)}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Security Answer"
@@ -153,15 +189,15 @@ const Login = () => {
               <div className="flex justify-between items-center my-2 text-[#7a75d8]">
               <p className="">You wanna sell ?</p>
               <form className="">
-                <input onClick={handleSetAdminRole} checked={adminRole && "true"}  type="radio" id="admin" name="role" value="admin" gap="10" /> {" "}
-                <label className="mr-2" for="admin">Yes</label>
-                <input onClick={handleSetUserRole} checked={userRole && "true"} type="radio" id="user" name="role" value="user" /> {" "}
-                <label for="user">No</label>
+                <input onClick={handleSetAdminRole} defaultChecked={adminRole && "true"}  type="radio" id="admin" name="role" value="admin" gap="10" /> {" "}
+                <label className="mr-2" htmlFor="admin">Yes</label>
+                <input onClick={handleSetUserRole} defaultChecked={userRole && "true"} type="radio" id="user" name="role" value="user" /> {" "}
+                <label htmlFor="user">No</label>
               </form>
               </div>
             </div>
 
-            <button className="w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3">
+            <button onClick={handleRegister}  className="w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3">
               Signup
             </button>
             <p className="text-[#A7A3FF] mt-6 mb-3 text-center">

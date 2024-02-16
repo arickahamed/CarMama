@@ -6,7 +6,14 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import {  FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    console.log(email);
+    console.log(password);
     const [visible, setVisible] = useState(false);
+    function validateForm() {
+        return email?.length > 0 && password?.length > 0;
+      }
     const handleVisiblity = () => {
         setVisible(!visible);
     }
@@ -14,7 +21,13 @@ const Login = () => {
     const navigateToHome = () => navigate("/");
     const navigateToRegister = () => navigate("/register");
     const navigateToResetPass = () => navigate("/reset-password");
-  return (
+    const loginHandler = (e) => {
+        e.preventDefault();
+        console.log(email, password);
+        setEmail("");
+        setPassword("");
+    }
+    return (
       <div  className='w-screen'>
            <div className='lg:flex w-[90%] m-auto my-5'>
           {/* for larger device */}
@@ -48,16 +61,16 @@ const Login = () => {
                     Are you new here? Please <span className='text-blue-700 cursor-pointer' onClick={navigateToRegister}>register</span> first.
                 </div>
                 <div className='flex flex-col mt-2'>
-                <input type='text' className='hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none' placeholder='Your Email'/> <br />
+                <input name='email' value={email} onChange={(e)=>setEmail(e.target.value)} type='text' className='hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none' placeholder='Your Email'/> <br />
                 <div>
                 <div className='flex justify-center items-center'>
-                <input type={`${visible?"text":"password"}`} className='hover:shadow-md relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full' placeholder='Your Password'/> 
+                <input name='password' value={password} onChange={(e)=>setPassword(e.target.value)} type={`${visible?"text":"password"}`} className='hover:shadow-md relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full' placeholder='Your Password'/> 
                 {visible?<span className="flex justify-around items-center"><IoMdEye className="absolute mr-10" onClick={handleVisiblity}/></span> : <span className="flex justify-around items-center"><IoMdEyeOff className='text-[#A7A3FF] absolute mr-10' onClick={handleVisiblity}/></span>}
                 </div>
                 </div>
                 </div>
                 <p onClick={navigateToResetPass} className='text-sm text-[#A7A3FF] text-right pb-2 cursor-pointer'>Forgot Password?</p>
-                <button className='w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3'>Login</button>
+                <button onClick={loginHandler} disabled={!validateForm()}  className='w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3'>Login</button>
                 <p className='text-[#A7A3FF] mt-6 mb-3 text-center'>or connected with</p>
                 <div className='flex w-[50%] m-auto justify-between items-center'>
                 <FaFacebook className='text-blue-500' size={25}/>
@@ -65,7 +78,6 @@ const Login = () => {
                 <FcGoogle size={25} />
                 </div>
             </div>
-
            </div>
            </div>
         </div>

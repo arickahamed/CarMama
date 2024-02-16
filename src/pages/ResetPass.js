@@ -4,10 +4,21 @@ import loginImage from "../asset/image/login-signup/login-signup_image.png";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const ResetPass = () => {
+  const [email, setEmail] = useState();
+  const [securityAnswer, setSecurityAnswer] = useState();
+  const [password, setPassword] = useState();
   const [visible, setVisible] = useState(false);
   const handleVisiblity = () => {
     setVisible(!visible);
   };
+
+  const handleResetPass = (e) => {
+    e.preventDefault();
+    console.log(email, password, securityAnswer);
+    setEmail("");
+    setSecurityAnswer("");
+    setPassword("");
+  }
 
   const navigate = useNavigate();
   const navigateToHome = () => navigate("/");
@@ -43,7 +54,7 @@ const ResetPass = () => {
 
         {/* for small device */}
         <div className="lg:w-[35%] md:w-[65%] w-[85%] max-h-[80%] shadow-lg m-auto mt-10 border border-gray-300 rounded-md flex flex-col justify-center items-center">
-          <div className="py-10">
+          <div className="py-10 px-5">
             <h3 className="text-[23px] font-bold">
               Reset Password <span className="lg:hidden">To <span className='cursor-pointer border border-b-2' onClick={navigateToHome}>Car<span className="text-orange-600">Mama</span></span></span>
             </h3>
@@ -61,7 +72,7 @@ const ResetPass = () => {
               .
             </div>
             <div className="flex flex-col mt-2">
-              <input
+              <input value={email} onChange={(e)=>setEmail(e.target.value)}
                 type="text"
                 className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none hover:shadow-md"
                 placeholder="Your Email"
@@ -69,8 +80,8 @@ const ResetPass = () => {
               <br />           
               
               {/* input field for security answer */}
-              <div class="inline-block relative w-full">
-                <select class="block appearance-none w-full text-[#A7A3FF] bg-[#F0EFFF] border border-gray-300 hover:shadow-md px-4 py-2 pr-8 rounded  leading-tight focus:outline-none focus:shadow-outline">
+              <div className="inline-block relative w-full">
+                <select className="block appearance-none w-full text-[#A7A3FF] bg-[#F0EFFF] border border-gray-300 hover:shadow-md px-4 py-2 pr-8 rounded  leading-tight focus:outline-none focus:shadow-outline">
                   <option>Your Security Question</option>
                   <option>Your pet's name</option>
                   <option>Your favorite place</option>
@@ -78,9 +89,9 @@ const ResetPass = () => {
                   <option>Your first salary</option>
                   <option>Your hobby</option>
                 </select>
-                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg
-                    class="fill-current h-4 w-4"
+                    className="fill-current h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
@@ -89,7 +100,7 @@ const ResetPass = () => {
                 </div>
               </div>
               <br />
-              <input
+              <input value={securityAnswer} onChange={(e)=>setSecurityAnswer(e.target.value)}
                 type="text"
                 className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] hover:shadow-md focus:shadow-md focus:outline-none"
                 placeholder="Your Security Answer"
@@ -97,7 +108,7 @@ const ResetPass = () => {
               {/* security answer ends here */}
               <div>
                 <div className="flex justify-center items-center">
-                  <input
+                  <input value={password} onChange={(e)=>setPassword(e.target.value)}
                     type={`${visible ? "text" : "password"}`}
                     className="relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full hover:shadow-md"
                     placeholder="Your New Password"
@@ -120,7 +131,7 @@ const ResetPass = () => {
                 </div>
               </div>
             </div>
-            <button className="w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 mt-4">
+            <button onClick={handleResetPass} className="w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 mt-4">
               Reset
             </button>
           </div>

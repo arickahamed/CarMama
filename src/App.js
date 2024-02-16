@@ -7,7 +7,6 @@ import Services from "./pages/Services";
 import Register from "./pages/Register";
 import ResetPass from "./pages/ResetPass";
 
-
 function App() {
   return (
     <Routes>
