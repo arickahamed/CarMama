@@ -1,27 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginImage from "../asset/image/login-signup/login-signup_image.png";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
-const Login = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [securityAnswer, setSecurityAnswer] = useState("");
-  const [phone, setPhone] = useState("");
+const Register = () => {
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    emai: "",
+    password: "",
+    phone: "",
+    address: "",
+    securityAnswer: "",
+    role:null
+  })
   const [adminRole, setAdminRole] = useState(false);
   const [userRole, setUserRole] = useState(false);
   const [visible, setVisible] = useState(false);
-  const role = () => {
+  const myRole = () => {
     if(adminRole === true) {
       return "admin";
     }else if(userRole === true) {
       return "user";
     }
   }
+  
   const clearRole = () => {
     if(adminRole === true) {
       return false;
@@ -29,17 +34,38 @@ const Login = () => {
       return false;
     }
   }
+
+  const handleInputInfo = (e) => {
+    const value = e.target.value;
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: value,
+      role:`${myRole()}`,
+    });
+  };
+
+  const clearInputInfo = () => {
+    setUserInfo({
+      name: "",
+      email: "",
+      password: "",
+      address: "",
+      phone: "",
+      securityAnswer: "",
+      role:clearRole()
+    })
+  }
   
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(name, email, password, phone, address, securityAnswer, role());
-    setName("");
-    setEmail("");
-    setPassword("");
-    setAddress("");
-    setPhone("");
-    setSecurityAnswer("");
-    clearRole();
+    // console.log(userInfo);
+    axios.post("api/v1/auth/register", {
+      userInfo
+    })
+    .then((response) => {
+      console.log(response?.data);
+    });
+    clearInputInfo();
   }
 
   const handleVisiblity = () => {
@@ -64,7 +90,7 @@ const Login = () => {
           <div className="flex flex-col justify-evenly">
             <div className="">
               <h2 className="font-bold text-[30px] cursor-pointer">
-                Sign Up to Car<span className="text-orange-600">Mama</span>
+                Sign Up to <span onClick={navigateToHome}>Car<span className="text-orange-600">Mama</span></span>
               </h2>
               <h3>Cause your privacy is important to us</h3>
             </div>
@@ -105,14 +131,14 @@ const Login = () => {
               first.
             </div>
             <div className="flex flex-col mt-2">
-              <input value={name} onChange={(e)=>setName(e.target.value)}
+              <input name="name" value={userInfo.name} onChange={handleInputInfo}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Name"
               />{" "}
               <br />
               <input
-              value={email} onChange={(e)=>setEmail(e.target.value)}
+              name="email" value={userInfo.email} onChange={handleInputInfo}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Email"
@@ -121,7 +147,7 @@ const Login = () => {
               <div>
                 <div className="flex justify-center items-center">
                   <input
-                  value={password} onChange={(e)=>setPassword(e.target.value)}
+                  name="password" value={userInfo.password} onChange={handleInputInfo}
                     type={`${visible ? "text" : "password"}`}
                     className="hover:shadow-md relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full"
                     placeholder="Your Password"
@@ -145,14 +171,14 @@ const Login = () => {
               </div>
               <br />
               <input
-              value={phone} onChange={(e)=>setPhone(e.target.value)}
+              name="phone" value={userInfo.phone} onChange={handleInputInfo}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Phone"
               />{" "}
               <br />
               <input
-              value={address} onChange={(e)=>setAddress(e.target.value)}
+              name="address" value={userInfo.address} onChange={handleInputInfo}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Address"
@@ -180,7 +206,7 @@ const Login = () => {
               </div>
               <br />
               <input
-              value={securityAnswer} onChange={(e)=>setSecurityAnswer(e.target.value)}
+              name="securityAnswer" value={userInfo.securityAnswer} onChange={handleInputInfo}
                 type="text"
                 className="hover:shadow-md border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none"
                 placeholder="Your Security Answer"
@@ -215,4 +241,6 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
+
+// "api/v1/auth/register"

@@ -2,11 +2,31 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginImage from "../asset/image/login-signup/login-signup_image.png";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+import axios from "axios";
 
 const ResetPass = () => {
-  const [email, setEmail] = useState();
-  const [securityAnswer, setSecurityAnswer] = useState();
-  const [password, setPassword] = useState();
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    securityAnswer: "",
+    password: ""
+  })
+  const handleInputInfo = (e) => {
+    const value = e.target.value;
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: value
+    });
+  };
+
+  const clearInputInfo = () => {
+    setUserInfo({
+      email: "",
+      securityAnswer: "",
+      password: ""
+    });
+  };
+
+  console.log(userInfo?.email, userInfo?.securityAnswer, userInfo?.password);
   const [visible, setVisible] = useState(false);
   const handleVisiblity = () => {
     setVisible(!visible);
@@ -14,10 +34,11 @@ const ResetPass = () => {
 
   const handleResetPass = (e) => {
     e.preventDefault();
-    console.log(email, password, securityAnswer);
-    setEmail("");
-    setSecurityAnswer("");
-    setPassword("");
+    console.log(userInfo);
+    axios.post("api/v1/auth/resetPassValidation",{userInfo}).then((response) => {
+    console.log(response.data);
+    });
+    clearInputInfo();
   }
 
   const navigate = useNavigate();
@@ -31,7 +52,7 @@ const ResetPass = () => {
           <div className="flex flex-col justify-evenly">
             <div className="">
               <h2 className="font-bold text-[30px] cursor-pointer">
-                Reset Password to Car<span className="text-orange-600">Mama</span>
+                Reset Password to <span onClick={navigateToHome}>Car<span className="text-orange-600">Mama</span></span>
               </h2>
               <h3>Cause your privacy is important to us</h3>
             </div>
@@ -72,7 +93,7 @@ const ResetPass = () => {
               .
             </div>
             <div className="flex flex-col mt-2">
-              <input value={email} onChange={(e)=>setEmail(e.target.value)}
+              <input name="email" value={userInfo.email} onChange={handleInputInfo}
                 type="text"
                 className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none hover:shadow-md"
                 placeholder="Your Email"
@@ -100,7 +121,7 @@ const ResetPass = () => {
                 </div>
               </div>
               <br />
-              <input value={securityAnswer} onChange={(e)=>setSecurityAnswer(e.target.value)}
+              <input name="securityAnswer" value={userInfo.securityAnswer} onChange={handleInputInfo}
                 type="text"
                 className="border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] hover:shadow-md focus:shadow-md focus:outline-none"
                 placeholder="Your Security Answer"
@@ -108,7 +129,7 @@ const ResetPass = () => {
               {/* security answer ends here */}
               <div>
                 <div className="flex justify-center items-center">
-                  <input value={password} onChange={(e)=>setPassword(e.target.value)}
+                  <input name="password" value={userInfo.password} onChange={handleInputInfo}
                     type={`${visible ? "text" : "password"}`}
                     className="relative border border-gray-300 p-2 rounded-md text-[#A7A3FF] bg-[#F0EFFF] focus:text-[#2c286d] focus:shadow-md focus:outline-none w-full hover:shadow-md"
                     placeholder="Your New Password"
