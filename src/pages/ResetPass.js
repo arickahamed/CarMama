@@ -5,6 +5,10 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import axios from "axios";
 
 const ResetPass = () => {
+  const navigate = useNavigate();
+  const navigateToHome = () => navigate("/");
+  const navigateToSignin = () => navigate("/login");
+  const navigateToRegister = () => navigate("/register");
   const [userInfo, setUserInfo] = useState({
     email: "",
     securityAnswer: "",
@@ -36,14 +40,21 @@ const ResetPass = () => {
     e.preventDefault();
     console.log(userInfo);
     axios.post("api/v1/auth/resetPassValidation",{userInfo}).then((response) => {
-    console.log(response.data);
+      if(response?.data?.success){
+        alert(response?.data?.message);
+        navigateToSignin();
+      }else{
+        if(response?.data?.message === "Email isn't registered, Please signup"){
+          alert(response?.data?.message);
+          navigateToRegister();
+        }else {
+          alert(response?.data?.message);
+        }
+      }
     });
     clearInputInfo();
   }
 
-  const navigate = useNavigate();
-  const navigateToHome = () => navigate("/");
-  const navigateToSignin = () => navigate("/login");
   return (
     <div className="w-screen">
       <div className="lg:flex w-[90%] m-auto my-5">

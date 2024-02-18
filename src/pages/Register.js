@@ -19,6 +19,9 @@ const Register = () => {
   const [adminRole, setAdminRole] = useState(false);
   const [userRole, setUserRole] = useState(false);
   const [visible, setVisible] = useState(false);
+  const navigate = useNavigate();
+  const navigateToHome = () => navigate("/");
+  const navigateToSignin = () => navigate("/login");
   const myRole = () => {
     if(adminRole === true) {
       return "admin";
@@ -64,6 +67,12 @@ const Register = () => {
     })
     .then((response) => {
       console.log(response?.data);
+      if(response?.data?.success) {
+        alert(response?.data?.message);
+        navigateToSignin();
+      }else {
+        alert(response?.data?.message);
+      }
     });
     clearInputInfo();
   }
@@ -79,9 +88,7 @@ const Register = () => {
     setUserRole(true);
     setAdminRole(false);
   };
-  const navigate = useNavigate();
-  const navigateToHome = () => navigate("/");
-  const navigateToSignin = () => navigate("/login");
+  
   return (
     <div className="w-screen">
       <div className="lg:flex w-[90%] m-auto my-5">

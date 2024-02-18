@@ -43,7 +43,12 @@ const Login = () => {
             userInfo
           })
           .then((response) => {
-            console.log(response?.data);
+            if(response?.data?.success){
+                alert(response?.data?.message);
+                navigateToHome();
+            }else{
+                alert(response?.data?.message);
+            }
           });
         clearInputInfo();
     }
