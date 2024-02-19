@@ -6,8 +6,13 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import {  FcGoogle } from "react-icons/fc";
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../redux/features/userSlice';
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const user = useSelector(state => state?.user?.user);
+    console.log(user?.role);
     const [userInfo, setUserInfo] = useState({
         email:"",
         password: ""
@@ -27,9 +32,6 @@ const Login = () => {
     }
     // console.log(userInfo?.email, userInfo?.password);
     const [visible, setVisible] = useState(false);
-    function validateForm() {
-        return userInfo.email?.length > 0 && userInfo.password?.length > 0;
-      }
     const handleVisiblity = () => {
         setVisible(!visible);
     }
@@ -46,6 +48,7 @@ const Login = () => {
           .then((response) => {
             if(response?.data?.success){
                 toast.success(response?.data?.message);
+                dispatch(setUser(response?.data));
                 navigateToHome();
             }else{
                 toast.error(response?.data?.message);
@@ -96,7 +99,7 @@ const Login = () => {
                 </div>
                 </div>
                 <p onClick={navigateToResetPass} className='text-sm text-[#A7A3FF] text-right pb-2 cursor-pointer'>Forgot Password?</p>
-                <button onClick={loginHandler} disabled={!validateForm()}  className='w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3'>Login</button>
+                <button onClick={loginHandler} disabled={userInfo.email == ""|| userInfo.password == ""}  className={`w-full shadow-lg border  rounded p-2 my-3 ${userInfo.email == ""|| userInfo.password == ""? "text-black bg-gray-500 border-gray-700" :"text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600"}`}>Login</button>
                 <p className='text-[#A7A3FF] mt-6 mb-3 text-center'>or connected with</p>
                 <div className='flex w-[50%] m-auto justify-between items-center'>
                 <FaFacebook className='text-blue-500' size={25}/>
@@ -111,3 +114,5 @@ const Login = () => {
 }
 
 export default Login;
+
+// 

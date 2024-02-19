@@ -17,7 +17,7 @@ const Register = () => {
     address: "",
     securityAnswer: "",
     role:""
-  })
+  });
 
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
@@ -211,7 +211,7 @@ const Register = () => {
               </div>
             </div>
 
-            <button onClick={handleRegister}  className="w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3">
+            <button onClick={handleRegister}  className="w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3" disabled={userInfo.name == ""||userInfo.email == ""||userInfo.password == ""||userInfo.phone == ""||userInfo.address == ""||userInfo.securityAnswer == ""}>
               Signup
             </button>
             <p className="text-[#A7A3FF] mt-6 mb-3 text-center">
