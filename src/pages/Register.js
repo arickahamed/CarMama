@@ -8,6 +8,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  const [myRole, setMyRole] = useState("admin");
   const [userInfo, setUserInfo] = useState({
     name: "",
     emai: "",
@@ -15,36 +16,19 @@ const Register = () => {
     phone: "",
     address: "",
     securityAnswer: "",
-    role:null
+    role:""
   })
-  const [adminRole, setAdminRole] = useState(false);
-  const [userRole, setUserRole] = useState(false);
+
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
   const navigateToHome = () => navigate("/");
   const navigateToSignin = () => navigate("/login");
-  const myRole = () => {
-    if(adminRole === true) {
-      return "admin";
-    }else if(userRole === true) {
-      return "user";
-    }
-  }
-  
-  const clearRole = () => {
-    if(adminRole === true) {
-      return false;
-    }else if(userRole === true) {
-      return false;
-    }
-  }
 
-  const handleInputInfo = (e) => {
+  const handleInputInfo = async(e) => {
     const value = e.target.value;
     setUserInfo({
       ...userInfo,
       [e.target.name]: value,
-      role:`${myRole()}`,
     });
   };
 
@@ -56,18 +40,16 @@ const Register = () => {
       address: "",
       phone: "",
       securityAnswer: "",
-      role:clearRole()
+      role: myRole
     })
   }
   
   const handleRegister = (e) => {
     e.preventDefault();
-    // console.log(userInfo);
     axios.post("api/v1/auth/register", {
       userInfo
     })
     .then((response) => {
-      console.log(response?.data);
       if(response?.data?.success) {
         toast.success(response?.data?.message);
         navigateToSignin();
@@ -81,15 +63,13 @@ const Register = () => {
   const handleVisiblity = () => {
     setVisible(!visible);
   };
-  const handleSetAdminRole = () => {
-    setAdminRole(true);
-    setUserRole(false);
-  };
-  const handleSetUserRole = () => {
-    setUserRole(true);
-    setAdminRole(false);
-  };
-  
+
+  const handleRole = (option) => {
+    setMyRole(option);
+  }
+
+  console.log(userInfo);
+
   return (
     <div className="w-screen">
       <div className="lg:flex w-[90%] m-auto my-5">
@@ -223,9 +203,9 @@ const Register = () => {
               <div className="flex justify-between items-center my-2 text-[#7a75d8]">
               <p className="">You wanna sell ?</p>
               <form className="">
-                <input onClick={handleSetAdminRole} defaultChecked={adminRole && "true"}  type="radio" id="admin" name="role" value="admin" gap="10" /> {" "}
+                <input onChange={()=>handleRole("admin")} type="radio" id="admin" name="role" value="admin" checked={myRole === "admin"} gap="10" /> {" "}
                 <label className="mr-2" htmlFor="admin">Yes</label>
-                <input onClick={handleSetUserRole} defaultChecked={userRole && "true"} type="radio" id="user" name="role" value="user" /> {" "}
+                <input onChange={()=>handleRole("user")} type="radio" id="user" name="role" value="user" checked={myRole === "user"} /> {" "}
                 <label htmlFor="user">No</label>
               </form>
               </div>
@@ -250,5 +230,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// "api/v1/auth/register"
