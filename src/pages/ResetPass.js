@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import loginImage from "../asset/image/login-signup/login-signup_image.png";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const ResetPass = () => {
   const navigate = useNavigate();
@@ -41,14 +42,14 @@ const ResetPass = () => {
     console.log(userInfo);
     axios.post("api/v1/auth/resetPassValidation",{userInfo}).then((response) => {
       if(response?.data?.success){
-        alert(response?.data?.message);
+        toast.success(response?.data?.message);
         navigateToSignin();
       }else{
         if(response?.data?.message === "Email isn't registered, Please signup"){
-          alert(response?.data?.message);
+          toast.warning(response?.data?.message);
           navigateToRegister();
         }else {
-          alert(response?.data?.message);
+          toast.error(response?.data?.message);
         }
       }
     });

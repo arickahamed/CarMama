@@ -5,6 +5,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import {  FcGoogle } from "react-icons/fc";
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const [userInfo, setUserInfo] = useState({
@@ -44,10 +45,10 @@ const Login = () => {
           })
           .then((response) => {
             if(response?.data?.success){
-                alert(response?.data?.message);
+                toast.success(response?.data?.message);
                 navigateToHome();
             }else{
-                alert(response?.data?.message);
+                toast.error(response?.data?.message);
             }
           });
         clearInputInfo();

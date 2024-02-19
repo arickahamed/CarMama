@@ -5,6 +5,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [userInfo, setUserInfo] = useState({
@@ -68,10 +69,10 @@ const Register = () => {
     .then((response) => {
       console.log(response?.data);
       if(response?.data?.success) {
-        alert(response?.data?.message);
+        toast.success(response?.data?.message);
         navigateToSignin();
       }else {
-        alert(response?.data?.message);
+        toast.error(response?.data?.message);
       }
     });
     clearInputInfo();
