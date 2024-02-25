@@ -41,7 +41,7 @@ const Login = () => {
     const navigateToResetPass = () => navigate("/reset-password");
     const loginHandler = (e) => {
         e.preventDefault();
-        // console.log(userInfo);
+        console.log(userInfo);
         axios.post("api/v1/auth/login", {
             userInfo
           })
@@ -115,4 +115,3 @@ const Login = () => {
 
 export default Login;
 
-// 

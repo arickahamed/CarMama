@@ -8,15 +8,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Register = () => {
-  const [myRole, setMyRole] = useState("admin");
+  const [myRole, setMyRole] = useState("");
+  console.log(myRole);
   const [userInfo, setUserInfo] = useState({
     name: "",
-    emai: "",
+    email: "",
     password: "",
     phone: "",
     address: "",
     securityAnswer: "",
-    role:""
+    role: ""
   });
 
   const [visible, setVisible] = useState(false);
@@ -40,7 +41,7 @@ const Register = () => {
       address: "",
       phone: "",
       securityAnswer: "",
-      role: myRole
+      role: ""
     })
   }
   
@@ -64,8 +65,8 @@ const Register = () => {
     setVisible(!visible);
   };
 
-  const handleRole = (option) => {
-    setMyRole(option);
+  const handleRole = (e) => {
+    setMyRole(e.target.value);
   }
 
   console.log(userInfo);
@@ -203,15 +204,15 @@ const Register = () => {
               <div className="flex justify-between items-center my-2 text-[#7a75d8]">
               <p className="">You wanna sell ?</p>
               <form className="">
-                <input onChange={()=>handleRole("admin")} type="radio" id="admin" name="role" value="admin" checked={myRole === "admin"} gap="10" /> {" "}
+                <input onChange={handleInputInfo} onClick={handleRole} type="radio" id="admin" name="role" value="admin" checked={myRole === "admin"} gap="10" /> {" "}
                 <label className="mr-2" htmlFor="admin">Yes</label>
-                <input onChange={()=>handleRole("user")} type="radio" id="user" name="role" value="user" checked={myRole === "user"} /> {" "}
+                <input onChange={handleInputInfo} onClick={handleRole} type="radio" id="user" name="role" value="user" checked={myRole === "user"} /> {" "}
                 <label htmlFor="user">No</label>
               </form>
               </div>
             </div>
 
-            <button onClick={handleRegister}  className="w-full shadow-lg border text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600 rounded p-2 my-3" disabled={userInfo.name == ""||userInfo.email == ""||userInfo.password == ""||userInfo.phone == ""||userInfo.address == ""||userInfo.securityAnswer == ""}>
+            <button onClick={handleRegister}  className={`w-full shadow-lg border  rounded p-2 my-3 ${userInfo.name == ""||userInfo.email == ""||userInfo.password == ""||userInfo.phone == ""||userInfo.address == ""||userInfo.securityAnswer == "" || userInfo.role == ""? "text-black bg-gray-500 border-gray-700" :"text-white border-blue-500 bg-[#4D47C3] hover:text-weight-bold hover:bg-blue-600"}`} disabled={userInfo.name == ""||userInfo.email == ""||userInfo.password == ""||userInfo.phone == ""||userInfo.address == ""||userInfo.securityAnswer == "" || userInfo.role == ""}>
               Signup
             </button>
             <p className="text-[#A7A3FF] mt-6 mb-3 text-center">
