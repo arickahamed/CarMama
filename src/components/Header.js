@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaPhone } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 import { NavLink, useNavigate } from "react-router-dom";
 import { navData } from "../asset/data";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/features/userSlice";
 
 const Header = () => {
     const navigate = useNavigate();
     const navigateToHome = () => navigate("/");
+    
+    const getUser = localStorage?.getItem('userInfo');
+    const user = JSON.parse(getUser);
+    console.log(user?.user);
+
     return (
         <div className="w-screen relative">
             <div className="w-auto sticky top border border-orange-600">

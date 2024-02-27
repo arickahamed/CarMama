@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const [myRole, setMyRole] = useState("");
-  console.log(myRole);
+  // console.log(myRole);
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -69,7 +69,7 @@ const Register = () => {
     setMyRole(e.target.value);
   }
 
-  console.log(userInfo);
+  // console.log(userInfo);
 
   return (
     <div className="w-screen">
@@ -202,12 +202,12 @@ const Register = () => {
               />
               {/* security answer ends here */}
               <div className="flex justify-between items-center my-2 text-[#7a75d8]">
-              <p className="">You wanna sell ?</p>
+              <p className="">Who are you?</p>
               <form className="">
                 <input onChange={handleInputInfo} onClick={handleRole} type="radio" id="admin" name="role" value="admin" checked={myRole === "admin"} gap="10" /> {" "}
-                <label className="mr-2" htmlFor="admin">Yes</label>
+                <label className="mr-2" htmlFor="admin">Admin</label>
                 <input onChange={handleInputInfo} onClick={handleRole} type="radio" id="user" name="role" value="user" checked={myRole === "user"} /> {" "}
-                <label htmlFor="user">No</label>
+                <label htmlFor="user">User</label>
               </form>
               </div>
             </div>

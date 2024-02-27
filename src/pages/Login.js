@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import loginImage from '../asset/image/login-signup/login-signup_image.png';
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
@@ -6,13 +6,16 @@ import { FaFacebook, FaInstagram } from "react-icons/fa";
 import {  FcGoogle } from "react-icons/fc";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/features/userSlice';
 
 const Login = () => {
-    const dispatch = useDispatch();
-    const user = useSelector(state => state?.user?.user);
-    console.log(user?.role);
+    const navigate = useNavigate();
+    const navigateToHome = () => navigate("/");
+    const navigateToRegister = () => navigate("/register");
+    const navigateToResetPass = () => navigate("/reset-password");
+    const [visible, setVisible] = useState(false);
+    
+    const [userData, setUserData] = useState(null);
+    console.log(userData);
     const [userInfo, setUserInfo] = useState({
         email:"",
         password: ""
@@ -30,37 +33,42 @@ const Login = () => {
             password: ""
         })
     }
-    // console.log(userInfo?.email, userInfo?.password);
-    const [visible, setVisible] = useState(false);
     const handleVisiblity = () => {
         setVisible(!visible);
     }
-  const navigate = useNavigate();
-    const navigateToHome = () => navigate("/");
-    const navigateToRegister = () => navigate("/register");
-    const navigateToResetPass = () => navigate("/reset-password");
-    const loginHandler = (e) => {
+
+    useEffect(() => {
+        if(userData){
+            localStorage.setItem("userInfo", JSON.stringify(userData));
+            navigateToHome();
+        }else {
+            return setUserData(null);
+        }
+    }, [userData])
+
+    const loginHandler = async(e) => {
         e.preventDefault();
-        console.log(userInfo);
-        axios.post("api/v1/auth/login", {
+        await axios.post("api/v1/auth/login", {
             userInfo
-          })
-          .then((response) => {
-            if(response?.data?.success){
-                toast.success(response?.data?.message);
-                dispatch(setUser(response?.data));
-                navigateToHome();
+            })
+            .then((response) => {
+            const data = response?.data
+            if(data?.success){
+                toast.success(data?.message);
+                // console.log(data);
+                setUserData(data);
+                // navigateToHome();
             }else{
-                toast.error(response?.data?.message);
+                toast.error(data?.message);
             }
-          });
+        });
         clearInputInfo();
     }
     return (
       <div  className='w-screen'>
            <div className='lg:flex w-[90%] m-auto my-5'>
           {/* for larger device */}
-          <div className='hidden lg:flex justify-evenly items-center w-[60%]'>
+            <div className='hidden lg:flex justify-evenly items-center w-[60%]'>
                 <div className='flex flex-col justify-evenly'>
                 <div className="">
                 <h2
@@ -79,10 +87,10 @@ const Login = () => {
                 <img src={loginImage} className='w-[90%]'/>
                 </div>
                 </div>
-           </div>
+            </div>
 
            {/* for small device */}
-           <div className='lg:w-[35%] md:w-[65%] w-[85%] m-auto mt-10 border shadow-lg border-gray-300 rounded-md flex flex-col justify-center items-center'>
+            <div className='lg:w-[35%] md:w-[65%] w-[85%] m-auto mt-10 border shadow-lg border-gray-300 rounded-md flex flex-col justify-center items-center'>
             <div className='py-10'>
                 <h3 className='text-[23px] font-bold'>Sign In <span className='lg:hidden'>To <span className='cursor-pointer border border-b-2' onClick={navigateToHome}>Car<span className="text-orange-600">Mama</span></span> </span></h3>
                 <h5 className='lg:hidden mb-4'>Cause your privacy is important to us</h5>
@@ -107,10 +115,10 @@ const Login = () => {
                 <FcGoogle size={25} />
                 </div>
             </div>
-           </div>
-           </div>
+            </div>
+          </div>
         </div>
-  )
+    )
 }
 
 export default Login;
