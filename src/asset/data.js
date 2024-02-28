@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import allianz from "./image/partners/allianz.png";
 import bro4u from "./image/partners/bro4u.png";
 import ola from "./image/partners/ola.png";
@@ -24,6 +25,9 @@ import trademarkImg1 from "./image/trademark/Group 48.png";
 import trademarkImg2 from "./image/trademark/Group 49.png";
 import trademarkImg3 from "./image/trademark/Group 50.png";
 
+    const getUser = localStorage?.getItem('userInfo');
+    const user = JSON.parse(getUser);
+    console.log(user?.user?.role);
 
 export const navData = [
     {
@@ -44,6 +48,28 @@ export const navData = [
     }
 ];
 
+export const adminNavData = [
+    {
+        name: "Home",
+        link: "/"   
+    },
+    {
+        name: "Services",
+        link: "/add-services"   
+    },
+    {
+        name: "Admins",
+        link: "/admins"   
+    },
+    {
+        name: "Users",
+        link: "/users"   
+    },
+    {
+        name: "Logout",
+        link: ""   
+    }
+];
 
 export const partnersImage = [
     {image: allianz},
