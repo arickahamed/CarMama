@@ -8,10 +8,10 @@ import Register from "./pages/Register";
 import ResetPass from "./pages/ResetPass";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Users from "./pages/Users";
-import Admins from "./pages/Admins";
-import AddServices from "./pages/AddServices";
-import Orders from "./pages/Orders";
+import Users from "./pages/admin/Users";
+import Admins from "./pages/admin/Admins";
+import AddServices from "./pages/admin/AddServices";
+import Orders from "./pages/admin/Orders";
 
 function App() {
   return (

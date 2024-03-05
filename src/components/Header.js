@@ -47,13 +47,15 @@ const Header = () => {
             onClick={() => handleToggleNavIcon()}
           >
             {toggleNavIcon ? (
-              <span className="text-red-500">
+              <span className="text-red-500 transition duration-300">
                 <RxCross2 />
               </span>
             ) : (
               <RxHamburgerMenu />
             )}
           </div>
+
+          {/* Navbar for large screen */}
           <div className="nav text-[20px] text-gray-600 hidden md:block lg:block">
             <NavLink
               className={`mr-4 text-md p-1 cursor-pointer font-semibold transition-all duration-500 border border-gray-200  hover:border-orange-500 hover:rounded-md hover:px-2`}
@@ -160,10 +162,10 @@ const Header = () => {
 
       {/*---------- dropdown navbar -------------*/}
       <div
-        className={`nav transition-all duration-300 ease-in ${
+        className={`nav ${
           toggleNavIcon
-            ? " translate-y-0 flex flex-col items-center justify-center py-3 text-gray-600 text-[25px] bg-gray-200"
-            : "translate-y-[-200]"
+            ? "flex flex-col items-center justify-center py-3 text-gray-600 text-[25px] bg-gray-200"
+            : "hidden"
         } md:hidden lg:hidden`}
       >
         <NavLink
@@ -214,7 +216,7 @@ const Header = () => {
       </div>
       <div className="bg-customYellow">
         <div className="flex py-2 justify-between items-center w-[85vw] m-auto">
-          <button className="bg-white shadow-sm shadow-inherit border border-black rounded-xl py-1 px-4 text-sm ">
+          <button className="bg-white shadow-sm shadow-inherit border border-black rounded-xl py-1 px-4 text-sm transition-all duration-200 delay-100 hover:bg-green-400 hover:text-white hover:font-semibold hover:">
             Select A Service
           </button>
           {user && (
